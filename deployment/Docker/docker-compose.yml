@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  # Frontend & Backend Next.js App
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: ../deployment/Docker/frontend.Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/prepwise
+      - JWT_SECRET=irfan@12345
+      - PORT=4000
+    depends_on:
+      - mongodb
+    restart: always
+
+  # Local MongoDB database service
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+
+volumes:
+  mongodb_data:
