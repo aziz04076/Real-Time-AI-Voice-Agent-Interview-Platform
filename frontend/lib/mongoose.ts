@@ -36,10 +36,9 @@ export const connectToDatabase = async () => {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      family: 4,
-      serverSelectionTimeoutMS: 5000,
-      connectTimeoutMS: 10000,
-      socketTimeoutMS: 10000,
+      serverSelectionTimeoutMS: 10000,
+      connectTimeoutMS: 15000,
+      socketTimeoutMS: 30000,
     };
 
     const isSRV = MONGODB_URI?.startsWith("mongodb+srv://");
