@@ -3,6 +3,8 @@ import { connectToDatabase } from "@/lib/mongoose";
 import User from "@/lib/models/user.model";
 import { getCurrentUser } from "@/lib/actions/auth.action";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: NextRequest) {
   try {
     const currentUser = await getCurrentUser();
