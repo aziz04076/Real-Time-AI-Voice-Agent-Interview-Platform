@@ -134,11 +134,16 @@ export async function getCurrentUser(): Promise<User | null> {
       isBlocked: userDoc.isBlocked,
     } as User;
   } catch (error: any) {
+    if (
+      error?.digest === "DYNAMIC_SERVER_USAGE" ||
+      error?.message?.includes("Dynamic server usage")
+    ) {
+      throw error;
+    }
     if (error.name === "JsonWebTokenError") {
       return null;
-    } else {
-      console.error("[getCurrentUser] Error verifying token or querying DB:", error?.message || error);
     }
+    console.error("[getCurrentUser] Error verifying token or querying DB:", error?.message || error);
     return null;
   }
 }
